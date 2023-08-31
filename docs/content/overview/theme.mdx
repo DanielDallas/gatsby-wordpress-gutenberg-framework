@@ -1,0 +1,43 @@
+---
+title: Theme
+description: How does the theme work?
+---
+
+Theme gives you these features:
+
+- allows you to write custom React component for each block
+- autogenerates the `<Blocks />` component importing only react components that are used in the content, to keep bundle size small
+- manages live previews (as you type in gutenberg)
+
+The `Blocks` component can be obtained as a field through graphql query in Gatsby:
+
+```js
+import React from "react"
+import Layout from "../components/layout"
+import { graphql } from "gatsby"
+
+export default function BlogPost({ data }) {
+  const post = data.allWpPost.nodes[0]
+  console.log(post)
+  return (
+    <Layout>
+      <div>
+        <h1>{post.title}</h1>
+        {post.Blocks && <post.Blocks />}
+      </div>
+    </Layout>
+  )
+}
+export const query = graphql`
+  query($slug: String!) {
+    allWpPost(filter: { slug: { eq: $slug } }) {
+      nodes {
+        title
+        Blocks
+      }
+    }
+  }
+`
+```
+
+> Read more about how to [write your custom React component](/features/blocks/) and how the [previews](/features/previews/) work.

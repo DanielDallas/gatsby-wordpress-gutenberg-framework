@@ -1,0 +1,47 @@
+{
+  "name": "gatsby-theme-wordpress-gutenberg",
+  "version": "0.1.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "gatsby",
+    "gatsby-plugin",
+    "gatsby-theme",
+    "wordpress",
+    "gutenberg",
+    "block-editor",
+    "page-builder"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/GatsbyWPGutenberg/gatsby-wordpress-gutenberg.git",
+    "directory": "packages/gatsby-theme-wordpress-gutenberg"
+  },
+  "contributors": [
+    {
+      "name": "Peter Pristas",
+      "email": "pristas.peter@gmail.com",
+      "url": "https://github.com/pristas-peter"
+    },
+    {
+      "name": "Henrik Wirth",
+      "url": "https://github.com/henrikwirth"
+    }
+  ],
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/GatsbyWPGutenberg/gatsby-wordpress-gutenberg/issues"
+  },
+  "homepage": "https://github.com/GatsbyWPGutenberg/gatsby-wordpress-gutenberg/#readme",
+  "dependencies": {
+    "fs-extra": "^9.0.1",
+    "gatsby-page-utils": "^0.2.10",
+    "gatsby-plugin-graphql-component": "^0.2.2",
+    "graphql-tag-pluck": "^0.8.7",
+    "humps": "^2.0.1",
+    "jsonfile": "^6.0.1"
+  }
+}

@@ -1,0 +1,24 @@
+---
+title: Packages
+description: Various packages/plugins which define the framework
+---
+
+The framework is defined by various packages which need to be installed inside wordpress and gatsby.
+
+## Dependencies
+
+- [`gatsby-source-wordpress-experimental` / `wp-gatsby`](https://github.com/gatsbyjs/gatsby-source-wordpress-experimental): Gatsby package / WP plugin to source Wordpress content into gatsby's GraphQL schema.
+
+- [`wp-graphql-gutenberg`](https://github.com/pristas-peter/wp-graphql-gutenberg): WP plugin to expose gutenberg blocks through GraphQL schema.
+
+## Core
+
+- `gatsby-theme-wordpress-gutenberg`: Gatsby package responsible for mapping blocks into react components with ability to query them automatically as one component
+
+> Read more about how theme works [here](/overview/theme/).
+
+## Addons
+
+- `wp-gatsby-gutenberg`: WP plugin to enable live gatsby block previews in gutenberg
+
+- [`wp-graphql-gutenberg-acf`](https://github.com/pristas-peter/wp-graphql-gutenberg-acf) WP plugin to support ACF blocks (Pro).

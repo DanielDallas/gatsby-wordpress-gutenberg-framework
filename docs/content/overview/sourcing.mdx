@@ -1,0 +1,97 @@
+---
+title: Sourcing
+description: How does sourcing work?
+---
+
+## How does Gutenberg store its content?
+
+> Get familiar with blocks core concepts from the [official handbook](https://developer.wordpress.org/block-editor/principles/key-concepts/).
+
+In a nutshell, `block` is some kind of unit for defining structured content. Every block has unique namespaced name and has to be registered in the `block registry` upon gutenberg bootstrap.
+Each block also contains `attributes` or configuration setting, which acts as a further metadata storage.
+
+The gutenberg editor than uses raw post html content to serialize/parse block information which is stored in html comments.
+
+Here is the example of serialized blocks in raw html post content,
+
+```html
+<!-- wp:columns {"columns":3} -->
+<div class="wp-block-columns has-3-columns">
+  <!-- wp:column -->
+  <div class="wp-block-column">
+    <!-- wp:paragraph -->
+    <p>Left</p>
+    <!-- /wp:paragraph -->
+  </div>
+  <!-- /wp:column -->
+
+  <!-- wp:column -->
+  <div class="wp-block-column">
+    <!-- wp:paragraph -->
+    <p><strong>Middle</strong></p>
+    <!-- /wp:paragraph -->
+  </div>
+  <!-- /wp:column -->
+
+  <!-- wp:column -->
+  <div class="wp-block-column"></div>
+  <!-- /wp:column -->
+</div>
+<!-- /wp:columns -->
+```
+
+and here the parsed counterpart:
+
+```js
+const blocks = [
+  {
+    blockName: "core/columns",
+    attrs: {
+      columns: 3,
+    },
+    innerBlocks: [
+      {
+        blockName: "core/column",
+        attrs: null,
+        innerBlocks: [
+          {
+            blockName: "core/paragraph",
+            attrs: null,
+            innerBlocks: [],
+            innerHTML: "\n<p>Left</p>\n",
+          },
+        ],
+        innerHTML: '\n<div class="wp-block-column"></div>\n',
+      },
+      {
+        blockName: "core/column",
+        attrs: null,
+        innerBlocks: [
+          {
+            blockName: "core/paragraph",
+            attrs: null,
+            innerBlocks: [],
+            innerHTML: "\n<p><strong>Middle</strong></p>\n",
+          },
+        ],
+        innerHTML: '\n<div class="wp-block-column"></div>\n',
+      },
+      {
+        blockName: "core/column",
+        attrs: null,
+        innerBlocks: [],
+        innerHTML: '\n<div class="wp-block-column"></div>\n',
+      },
+    ],
+    innerHTML: '\n<div class="wp-block-columns has-3-columns">\n\n\n\n</div>\n',
+  },
+]
+```
+
+## Issues with Gutenberg
+
+Gutenberg's main issue lies within its client-side only architecture for registering/validating blocks. This way the block registry and block definitions are only available in the editor itself and not available from the PHP side of WordPress. This exposes many challenges on how to actually expose this information outside of WordPress.
+
+## How is the content sourced?
+
+The main maintainer of this project is also the author of the [`wp-graphql-gutenberg`](https://github.com/pristas-peter/wp-graphql-gutenberg). This plugin is also responsible for providing the block data when the content is sourced through `gatsby-source-wordpress-experimental`.
